@@ -1,4 +1,5 @@
 let url = null;
+let code = document.querySelector('.code');
 let botao = document.querySelector(".buscar");
 
 function validar(dados) {
@@ -20,29 +21,30 @@ function validar(dados) {
   this.url = dados;
   return true;
 }
-function buscar(){ 
+async  function  buscar(){ 
 
-if(validar( document.querySelector("#urlID").value)){
-      try{
-        const response =await fetch('https://desafio-web-scraping.vercel.app/api/v1/created_task',{
-          method:'POST',
-          headers:{
-            'Content-Type':'aplication/json',
-          },
-          body: JSON.stringify({
-            urlID:this.url
-          }),
-        });
-            if (response.ok) {
-              alert("Requisição POST bem-sucedida!");
-          } else {
-              alert("Erro na requisição POST!");
-          }
-      } catch(error){
-          alert("Erro na requisição POST: " + error.message);
+  if(validar( document.querySelector("#urlID").value)){
+        try{
+          const response =await fetch('https://desafio-web-scraping.vercel.app/api/v1/created_task',{
+            method:'POST',
+            headers:{
+              'Content-Type':'aplication/json',
+            },
+            body: JSON.stringify({
+              urlID:this.url,
+              code: code
+            }),
+          });
+              if (response.ok) {
+                alert("Requisição POST bem-sucedida!");
+            } else {
+                alert("Erro na requisição POST!");
+            }
+        } catch(error){
+            alert("Erro na requisição POST: " + error.message);
 
+        }
       }
-    }
-  
+    
  
 }
